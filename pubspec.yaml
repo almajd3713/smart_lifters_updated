@@ -1,0 +1,76 @@
+name: smart_lifters
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  argon2: ^1.0.1
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  google_fonts: ^6.2.1
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  http: ^1.2.2
+  internet_connection_checker: ^3.0.1
+  page_transition: ^2.1.0
+  smooth_page_indicator: ^1.2.0+3
+  sqflite: ^2.4.1
+  sqflite_common_ffi: ^2.3.4+4
+  sqflite_common_ffi_web: ^0.4.5+4
+  supabase: ^2.6.2
+  supabase_flutter: ^2.8.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
+    - assets/images/onboarding/
+  fonts:
+  - family: Poppins
+    fonts:
+      - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+        weight: 100
+      - asset: assets/fonts/Poppins/Poppins-ExtraLight.ttf
+        weight: 200
+      - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        weight: 300
+      - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/Poppins/Poppins-Black.ttf
+        weight: 900
+
+  - family: LeagueSpartan
+    fonts:
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Regular.ttf
+        weight: 400
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Medium.ttf
+        weight: 500
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Bold.ttf
+        weight: 700
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-ExtraBold.ttf
+        weight: 800
+      - asset: assets/fonts/League_Spartan/static/LeagueSpartan-Black.ttf
+        weight: 900
