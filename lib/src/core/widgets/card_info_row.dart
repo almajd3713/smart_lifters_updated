@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:smart_lifters/src/content/workout/workout_plan.dart';
+import 'package:smart_lifters/src/core/widgets/exercise.dart';
 
 class CardInfoRowCompact extends StatelessWidget {
   const CardInfoRowCompact({
@@ -45,7 +47,7 @@ class CardInfoRowCompact extends StatelessWidget {
 }
 
 class CardInfoRow extends StatelessWidget {
-  const CardInfoRow({
+  const   CardInfoRow({
     super.key,
     this.isDark = false,
     this.type = "exercise"
@@ -56,7 +58,9 @@ class CardInfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
      return GestureDetector(
       onTap: () {
-        
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const WorkoutPlan())
+        );
       },
        child: Card(
         elevation: 0,

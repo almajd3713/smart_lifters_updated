@@ -15,7 +15,7 @@ class UserRepository {
   UserRepository({required Box usersBox}) : _usersBox = usersBox;
 
   Future<User> createNewUser(User user) async {
-    final url = Uri.parse('${base_url}/users/signup');
+    final url = Uri.parse('$base_url/users/signup');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

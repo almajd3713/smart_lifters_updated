@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_lifters/src/content/home_controller.dart';
+import 'package:smart_lifters/src/content/workout/workout_plan.dart';
 import 'package:smart_lifters/src/core/constants/numbers.dart';
 import 'package:smart_lifters/src/core/widgets/card_info_row.dart';
 
@@ -66,78 +67,85 @@ class _ScreenWorkoutState extends State<ScreenWorkout> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(Constants.padding),
-        child: Container(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20))
-          ),
-          child: Stack(
-            children: [
-              Image.asset('assets/images/workout_test.png', fit: BoxFit.fitWidth,),
-              Positioned(
-                right: 0,
-                left: 0,
-                bottom: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(100),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10) ,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Hello there", style: Theme.of(context).textTheme.headlineSmall,),
-                        const Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.timelapse,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    '45 Minutes',
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                ],
-                              ),           
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.local_fire_department,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    '45 Minutes',
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.run_circle_outlined,
-                                    size: 12,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    '45 Minutes',
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                ],
-                              )
-                        ],)
-                      ],
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const WorkoutPlan(),)
+            );
+          },
+          child: Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20))
+            ),
+            child: Stack(
+              children: [
+                Image.asset('assets/images/workout_test.png', fit: BoxFit.fitWidth,),
+                Positioned(
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(100),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10) ,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Hello there", style: Theme.of(context).textTheme.headlineSmall,),
+                          const Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.timelapse,
+                                      size: 12,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      '45 Minutes',
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.local_fire_department,
+                                      size: 12,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      '45 Minutes',
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.run_circle_outlined,
+                                      size: 12,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      '45 Minutes',
+                                      style: TextStyle(fontSize: 12),
+                                    )
+                                  ],
+                                )
+                          ],)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
