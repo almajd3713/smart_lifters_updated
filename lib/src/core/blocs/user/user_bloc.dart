@@ -1,13 +1,20 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:smart_lifters/src/db/prefs.dart';
 import 'package:smart_lifters/src/db/schemas/user/user.dart';
 import 'package:smart_lifters/src/db/schemas/user/user_repo.dart';
+import 'package:http/http.dart' as http;
 // import 'user.dart';
+
 
 part 'user_event.dart';
 part 'user_state.dart';
 
+
 class UserBloc extends Bloc<UserEvent, UserState> {
+  final userRepo = UserRepository(usersBox: localData);
   UserBloc() : super(const UserInitial(props: {
     'height': 140.0,
     'weight': 45.0,
@@ -31,35 +38,46 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     });
     on<SignupEvent>((event, emit) async {
       emit(UserLoading(props: state.props));
-        // Login Logic checks, whatever
-        // emit(UserAuthenticated(name: 'A Sporty Person', email: event.email));
         try {
-          // User user = await userRepository.createNewUser({
-          //   ...state.props,
-          //   'name': event.name,
-          //   'email': event.email,
-          //   'password': event.password
-          // });
           User user = User.fromMap(state.props).copyWith(
             name: event.name,
             email: event.email,
+            hashedPassword: event.password
           );
-          emit(UserAuthenticated(user: user, props: state.props));
-        } catch(error) {
-          print(error);
-          emit(UserError(message: "User login error", props: state.props));
+          User returnedUser = await userRepo.createNewUser(user);
+          localData.put('current_user_id', returnedUser.id);
+          emit(UserAuthenticated(user: returnedUser, props: state.props));
+        } catch(e) {
+          print(e.toString());
+          localData.put('current_user_id', null);
+          emit(UserError(message: e.toString(), props: state.props));
       }
     });
     on<LoginEvent>((event, emit) async {
       emit(UserLoading(props: state.props));
       try {
-      // Login Logic checks, whatever
-        emit(UserAuthenticated(user: User.fromMap(state.props).copyWith(
-          name: event.name,
-        ), props: state.props));
+        User returnedUser = await userRepo.getUser(event.name, event.password);
+        localData.put('current_user_id', returnedUser.id);
+        emit(UserAuthenticated(user: returnedUser, props: state.props));
       } catch (e) {
+        print(e.toString());
+        localData.put('current_user_id', null);
         emit(UserError(message: e.toString(), props: state.props));
       }
+    });
+    on<LoginEventById>((event, emit) async {
+      try {
+        User returnedUser = await userRepo.getUserById(event.userId);
+        localData.put('current_user_id', returnedUser.id);
+        emit(UserAuthenticated(user: returnedUser, props: state.props));
+      } catch(e) {
+        localData.put('current_user_id', null);
+        emit(UserError(message: e.toString(), props: state.props));
+      }
+    });
+    on<LogoutEvent>((event, emit) async {
+      localData.put('current_user_id', null);
+      emit(UserUnauthenticated(props: state.props));
     });
   }
 }

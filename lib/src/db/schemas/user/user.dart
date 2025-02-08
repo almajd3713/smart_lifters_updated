@@ -16,24 +16,24 @@ class User {
 
   @HiveField(3)
   final String gender;
-  
-  @HiveField(4)
-  final String mobileNumber;
 
-  @HiveField(5)
+  @HiveField(4)
   final DateTime birthDate;
 
-  @HiveField(6)
+  @HiveField(5)
   final double weight;
 
-  @HiveField(7)
+  @HiveField(6)
   final double height;
 
-  @HiveField(8)
+  @HiveField(7)
   final int age;
 
-  @HiveField(9)
+  @HiveField(8)
   final String hashedPassword;
+
+  @HiveField(9)
+  final String goal;
 
   User({
     required this.hashedPassword,
@@ -41,11 +41,11 @@ class User {
     required this.name,
     required this.email,
     required this.gender,
-    required this.mobileNumber,
     required this.birthDate,
     required this.weight,
     required this.height,
     required this.age,
+    required this.goal
   });
 
   Map<String, dynamic> toJson() => {
@@ -53,12 +53,12 @@ class User {
     'name': name,
     'email': email,
     'gender': gender,
-    'mobileNumber': mobileNumber,
     'birthDate': birthDate.toIso8601String(),
     'weight': weight,
     'height': height,
     'age': age,
-    'hashedPassword': hashedPassword
+    'hashedPassword': hashedPassword,
+    'goal': goal
   };
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -66,19 +66,18 @@ class User {
     name: json['name'],
     email: json['email'],
     gender: json['gender'],
-    mobileNumber: json['mobileNumber'],
     birthDate: DateTime.parse(json['birthDate']),
-    weight: json['weight'],
-    height: json['height'],
+    weight: (json['weight'] as int).toDouble(),
+    height: (json['height'] as int).toDouble(),
     age: json['age'],
-    hashedPassword: json['hashedPassword']
+    hashedPassword: json['password'],
+    goal: json['fitness_goal']
   );
 
   Map<String, Object> toMap() => {
     "name": name,
     "email": email,
     "gender": gender,
-    "mobileNumber": mobileNumber,
     "birthDate": birthDate,
     "weight": weight,
     "height": height,
@@ -88,11 +87,11 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
+      goal: map['goal'],
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       gender: map['gender'] ?? '',
-      mobileNumber: map['mobileNumber'] ?? '',
       birthDate: map['birthDate'] != null ? DateTime.parse(map['birthDate']) : DateTime(2000, 1, 1),
       weight: map['weight'] ?? 0.0,
       height: map['height'] ?? 0.0,
@@ -106,12 +105,12 @@ class User {
     name: '',
     email: '',
     gender: '',
-    mobileNumber: '',
     birthDate: DateTime(2000, 1, 1),
     weight: 0.0,
     height: 0.0,
     age: 0,
     hashedPassword: '',
+    goal: ''
   );
 
   User copyWith({
@@ -125,13 +124,14 @@ class User {
     double? height,
     int? age,
     String? hashedPassword,
+    String? goal
   }) {
     return User(
+      goal: goal ?? this.goal,
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
       gender: gender ?? this.gender,
-      mobileNumber: mobileNumber ?? this.mobileNumber,
       birthDate: birthDate ?? this.birthDate,
       weight: weight ?? this.weight,
       height: height ?? this.height,

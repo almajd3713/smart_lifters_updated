@@ -12,6 +12,12 @@ class LoginEvent extends UserEvent {
   const LoginEvent(this.name, this.password);
 }
 
+class LoginEventById extends UserEvent {
+  final String userId;
+
+  const LoginEventById(this.userId);
+}
+
 class SignupEvent extends UserEvent {
   final String name;
   final String email;

@@ -28,13 +28,13 @@ class Login extends StatelessWidget {
       body: SingleChildScrollView(
         child: BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
-            if(state is UserAuthenticated) {
+            if (state is UserAuthenticated) {
               Navigator.pushNamed(context, '/home');
             }
-            else if(state is UserUnauthenticated) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('Incorrect information. Check your info and try again.'),
-                ));
+            else if (state is UserError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(state.message)
+              ));
             }
           },
           builder: (context, state) => Center(

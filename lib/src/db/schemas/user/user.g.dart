@@ -17,16 +17,16 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      hashedPassword: fields[9] as String,
+      hashedPassword: fields[8] as String,
       id: fields[0] as String,
       name: fields[1] as String,
       email: fields[2] as String,
       gender: fields[3] as String,
-      mobileNumber: fields[4] as String,
-      birthDate: fields[5] as DateTime,
-      weight: fields[6] as double,
-      height: fields[7] as double,
-      age: fields[8] as int,
+      birthDate: fields[4] as DateTime,
+      weight: fields[5] as double,
+      height: fields[6] as double,
+      age: fields[7] as int,
+      goal: fields[9] as String,
     );
   }
 
@@ -43,17 +43,17 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(3)
       ..write(obj.gender)
       ..writeByte(4)
-      ..write(obj.mobileNumber)
-      ..writeByte(5)
       ..write(obj.birthDate)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.weight)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.height)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.age)
+      ..writeByte(8)
+      ..write(obj.hashedPassword)
       ..writeByte(9)
-      ..write(obj.hashedPassword);
+      ..write(obj.goal);
   }
 
   @override

@@ -38,11 +38,8 @@ class ScreenAccount extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                 FilledButton(onPressed: () {
-
-                  // User user = localData.get('user');
-                  // user.name = "NULL_USER";
-                  // localData.put('user', user);
-                  // Navigator.pushNamedAndRemoveUntil(context, '/onboarding/login', (route) => false,);
+                  context.read<UserBloc>().add(LogoutEvent());
+                  Navigator.of(context).pushReplacementNamed('/onboarding/login');
               }, child: const Text("Yes")),
                 FilledButton(onPressed: () async {
                   Navigator.pop(context);}, child: const Text("No"))
@@ -57,21 +54,34 @@ class ScreenAccount extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       child: Builder(
         builder: (context) {
-          final userState = context.watch<UserBloc>().state as UserAuthenticated;
-          return Column(children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor
+          final userState = context.watch<UserBloc>().state;
+          return BlocConsumer<UserBloc, UserState>(
+            listener: (context, state) {
+              if(state is UserUnauthenticated) {
+                Navigator.of(context).pushNamedAndRemoveUntil('/onboarding/login', (route) => false);
+              }
+            },
+            builder: (context, state) {
+              if(state is UserAuthenticated) {
+                return Column(children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor
+                  ),
+                  child: Column(
+                    children: [
+                      topPart(context, state.user),
+                      infoPart(context, state.user),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    topPart(context, userState.user),
-                    infoPart(context, userState.user),
-                  ],
-                ),
-              ),
-                bottomPart(context, userState.user, _optionBtns)
-            ],);
+                  bottomPart(context, state.user, _optionBtns)
+              ],);
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          );
         }
       ),
       );
